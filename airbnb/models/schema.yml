@@ -9,11 +9,13 @@ models:
             
     columns:
      - name: listing_id
+       description: The id of the listing. This is the primary key.
        data_tests:
          - unique
          - not_null
 
      - name: host_id
+       description: The id of the host. References the host_id in the dim_hosts_cleansed table.
        data_tests:
          - not_null
          - relationships:
@@ -22,6 +24,7 @@ models:
                field: host_id
 
      - name: room_type
+       description: The type of the room.
        data_tests:
          - accepted_values:
              arguments:
@@ -31,6 +34,7 @@ models:
                         'Hotel room']
      
      - name: minimum_nights
+       description: '{{doc("dim_listing_cleansed__minimum_nights")}}'
        data_tests:
          - positive_values
 
@@ -63,7 +67,9 @@ models:
                 values: ['t', 'f']
 
       - name: updated_at
+        description: The timestamp when the host information was last updated.
         data_type: timestamp
 
       - name: created_at
+        description: The timestamp when the host information was created.
         data_type: timestamp
