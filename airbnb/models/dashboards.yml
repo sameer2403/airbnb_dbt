@@ -1,0 +1,19 @@
+version: 2
+
+exposures:
+  - name: executive_dashboard
+    label: Executive Dashboard
+    type: dashboard
+    maturity: low
+    url: https://2c432fe8.us1a.app.preset.io/superset/dashboard/1/?native_filters_key=Ovt3t484Qrc
+    description: Executive Dashboard about Airbnb listings and hosts
+      
+
+    depends_on:
+      - ref('dim_listings_w_hosts')
+      - ref('mart_fullmoon_review')
+      - ref('scd_raw_hosts')
+
+    owner:
+      name: Sameer Suman
+      email: sameersuman2403@gmail.com

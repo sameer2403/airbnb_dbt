@@ -24,8 +24,17 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "dbt_packages"
 
 
+on-run-start:
+  - "CREATE TABLE IF NOT EXISTS {{ target.schema }}.audit_log(
+      model_name STRING,
+      run_timestamp TIMESTAMP
+      )"
+
 models:
   airbnb:
+    +grants:
+      select: ["transform", "reporter"]
+    +post-hook: "INSERT INTO {{ target.schema }}.audit_log VALUES ('{{ this.name }}', CURRENT_TIMESTAMP)"
     +materialized: view
     dim:
       +materialized: table
@@ -35,3 +44,7 @@ models:
 data_tests:
   +store_failures: true  
   +schema: test_failures   
+
+
+vars:
+  username:  Joey  
